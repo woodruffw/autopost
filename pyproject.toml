@@ -1,0 +1,92 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "autopost"
+dynamic = ["version"]
+description = "Auto-posts social media updates"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+  { name = "William Woodruff", email = "william@yossarian.net" }
+]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Security",
+]
+dependencies = [
+  "praw >= 7.6,<8.0",
+  "Mastodon.py >= 1.5",
+  "pydantic >= 1.10",
+  "rich >= 12.5.1,< 12.7.0",
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://pypi.org/project/autopost/"
+Issues = "https://github.com/woodruffw/autopost/issues"
+Source = "https://github.com/woodruffw/autopost"
+
+[project.scripts]
+autopost = "autopost._cli:main"
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+  "pretend",
+]
+lint = [
+  "bandit",
+  "flake8",
+  "black",
+  "isort",
+  "interrogate",
+  "mypy",
+]
+dev = [
+  "build",
+  "autopost[test,lint]",
+]
+
+[tool.isort]
+multi_line_output = 3
+known_first_party = "autopost"
+include_trailing_comma = true
+
+[tool.interrogate]
+exclude = ["env", "test", "codegen"]
+ignore-semiprivate = true
+fail-under = 100
+
+[tool.mypy]
+plugins = [
+  "pydantic.mypy"
+]
+
+allow_redefinition = true
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.bandit]
+exclude_dirs = ["./test"]
+
+[tool.black]
+line-length = 100
