@@ -21,9 +21,10 @@ classifiers = [
   "Topic :: Security",
 ]
 dependencies = [
-  "praw >= 7.6,<8.0",
-  "Mastodon.py >= 1.5",
-  "pydantic >= 1.10",
+  "praw ~= 7.6.1",
+  "Mastodon.py ~= 1.7.0",
+  "pydantic ~= 1.10",
+  "python-frontmatter ~= 1.0",
   "rich >= 12.5.1,< 12.7.0",
 ]
 requires-python = ">=3.11"
