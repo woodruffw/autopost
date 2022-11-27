@@ -23,17 +23,12 @@ class Mastodon(Backend):
 
     def health_check(self) -> Result:
         try:
-            instance = self._client.instance()
-            if "version" in instance:
-                return Success()
-            return Failure(reason=f"instance response from {self._config.server} looks wrong")
-
             # TODO(ww): Use this once a new version of Mastodon.py is released.
             # See: https://github.com/halcy/Mastodon.py/issues/258
-            # ok = self._client.instance_health()
-            # if ok:
-            #     return Success()
-            # return Failure(reason=f"{self._config.server} failed instance health check")
+            ok = self._client.instance_health()
+            if ok:
+                return Success()
+            return Failure(reason=f"{self._config.server} failed instance health check")
         except Exception as e:
             return Failure(reason=str(e))
 
@@ -66,4 +61,4 @@ class Mastodon(Backend):
             _ = self._client.status_post(status)
             return Success()
         except Exception as e:
-            return Failure(str(e))
+            return Failure(reason=str(e))
