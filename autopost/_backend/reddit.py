@@ -29,9 +29,7 @@ class Reddit(Backend):
         except Exception as e:
             return Err(str(e))
 
-    def post(
-        self, content: str, url: str, *, dry_run: bool = False, tags: list[str] = []
-    ) -> Result[Url, str]:
+    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
         try:
             subreddit = self._client.subreddit(self._config.subreddit)
             submission = subreddit.submit(content, url=url)

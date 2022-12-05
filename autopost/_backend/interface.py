@@ -14,7 +14,5 @@ class Backend(ABC):
         pass
 
     @abstractmethod
-    def post(
-        self, content: str, url: str, *, dry_run: bool = False, tags: list[str] = []
-    ) -> Result[Url, str]:
+    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
         pass

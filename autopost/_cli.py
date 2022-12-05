@@ -124,5 +124,8 @@ def main() -> None:
                 print(status)
                 sys.exit(1)
 
+        if args.dry_run:
+            sys.exit(0)
+
         # for backend in backends:
-        #     backend.post(args.content, args.url, tags=args.tags, dry_run=args.dry_run)
+        #     backend.post(args.content, args.url, tags=args.tags)

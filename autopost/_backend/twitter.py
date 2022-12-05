@@ -17,7 +17,5 @@ class Twitter(Backend):
     def health_check(self) -> Result[None, str]:
         return Err("unimplemented")
 
-    def post(
-        self, content: str, url: str, *, dry_run: bool = False, tags: list[str] = []
-    ) -> Result[Url, str]:
+    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
         return Err("unimplemented")
