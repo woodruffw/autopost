@@ -21,6 +21,7 @@ classifiers = [
   "Topic :: Security",
 ]
 dependencies = [
+  "feedparser ~= 6.0",
   "praw ~= 7.6.1",
   "Mastodon.py ~= 1.7.0",
   "pydantic ~= 1.10",

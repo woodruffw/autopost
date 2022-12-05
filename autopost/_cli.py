@@ -6,6 +6,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
 
+import feedparser
 import frontmatter
 import tomllib
 from rich import traceback
@@ -68,6 +69,18 @@ def _parser() -> argparse.ArgumentParser:
     )
     manual.add_argument("content", metavar="CONTENT", help="the post body")
 
+    atom = subcommands.add_parser(
+        "atom",
+        help="auto-post from an Atom RSS feed",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    atom.add_argument(
+        "url",
+        metavar="URL",
+        help="the feed's URL",
+        type=str,
+    )
+
     jekyll = subcommands.add_parser(
         "jekyll",
         help="auto-post for a Jekyll-based blog",
@@ -99,6 +112,12 @@ def _get_post(args: argparse.Namespace) -> Iterator[tuple[str, str, list[str]]]:
         post = frontmatter.loads(latest_path.read_text())
 
         yield post["title"], None, []
+    elif args.subcommand == "atom":
+        feed = feedparser.parse(args.url)
+        if not feed.entries:
+            raise ValueError("feed is missing entries")
+        latest = feed.entries[0]
+        yield latest.title, latest.link, [t["term"] for t in latest.tags]
     else:
         logger.error("unreachable")
         sys.exit(1)
