@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import praw
+from result import Err, Ok, Result
 
-from autopost._backend.interface import Backend, Failure, Result, Success
+from autopost._backend.interface import Backend, Url
 
 if TYPE_CHECKING:
     from autopost._config import RedditConfig
@@ -21,19 +22,19 @@ class Reddit(Backend):
             user_agent="autopost by u/yossarian_flew_away",
         )
 
-    def health_check(self) -> Result:
+    def health_check(self) -> Result[None, str]:
         try:
             self._client.user.me()
-            return Success()
+            return Ok()
         except Exception as e:
-            return Failure(reason=str(e))
+            return Err(str(e))
 
     def post(
         self, content: str, url: str, *, dry_run: bool = False, tags: list[str] = []
-    ) -> Result:
+    ) -> Result[Url, str]:
         try:
             subreddit = self._client.subreddit(self._config.subreddit)
-            subreddit.submit(content, url=url)
-            return Success()
+            submission = subreddit.submit(content, url=url)
+            return Ok(Url(submission.permalink))
         except Exception as e:
-            return Failure(reason=str(e))
+            return Err(str(e))

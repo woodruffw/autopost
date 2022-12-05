@@ -26,6 +26,7 @@ dependencies = [
   "Mastodon.py ~= 1.7.0",
   "pydantic ~= 1.10",
   "python-frontmatter ~= 1.0",
+  "result ~= 0.8",
   "rich >= 12.5.1,< 12.7.0",
 ]
 requires-python = ">=3.11"

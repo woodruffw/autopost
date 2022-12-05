@@ -1,23 +1,11 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from typing import NewType
 
+from result import Result
 
-class Success:
-    def __bool__(self) -> bool:
-        return True
-
-
-@dataclass(frozen=True, slots=True, kw_only=True)
-class Failure:
-    reason: str
-
-    def __bool__(self) -> bool:
-        return False
-
-
-Result = Success | Failure
+Url = NewType("Url", str)
 
 
 class Backend(ABC):
@@ -28,5 +16,5 @@ class Backend(ABC):
     @abstractmethod
     def post(
         self, content: str, url: str, *, dry_run: bool = False, tags: list[str] = []
-    ) -> Result:
+    ) -> Result[Url, str]:
         pass
