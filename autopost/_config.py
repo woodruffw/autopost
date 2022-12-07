@@ -1,18 +1,38 @@
+import os
 from typing import Annotated, Iterator, Literal
 
-from pydantic import BaseModel, Field, SecretStr
+from pydantic import BaseModel, Field, SecretStr, StrictStr
 
 from autopost._backend.interface import Backend
+
+
+class Embedded(BaseModel):
+    type_: Literal["Embedded"] = Field(alias="type")
+    value: SecretStr
+
+    def get_secret_value(self) -> str:
+        return self.value.get_secret_value()
+
+
+class Environment(BaseModel):
+    type_: Literal["Environment"] = Field(alias="type")
+    variable: StrictStr
+
+    def get_secret_value(self) -> str:
+        return os.environ[self.variable]
+
+
+Credential = Annotated[Embedded | Environment, Field(discriminator="type_")]
 
 
 class RedditConfig(BaseModel):
     type_: Literal["Reddit"] = Field(alias="type")
     name: str | None
     subreddit: str
-    client_id: SecretStr
-    client_secret: SecretStr
+    client_id: Credential
+    client_secret: Credential
     username: str
-    password: SecretStr
+    password: Credential
 
 
 class TwitterConfig(BaseModel):
@@ -24,9 +44,9 @@ class MastodonConfig(BaseModel):
     type_: Literal["Mastodon"] = Field(alias="type")
     name: str | None
     server: str
-    client_secret: SecretStr
-    client_key: SecretStr
-    access_token: SecretStr
+    client_secret: Credential
+    client_key: Credential
+    access_token: Credential
 
 
 BackendConfig = Annotated[
@@ -35,7 +55,7 @@ BackendConfig = Annotated[
 
 
 class Config(BaseModel):
-    backend_configs: list[BackendConfig] = Field(..., alias="backends")
+    backend_configs: list[BackendConfig] = Field(..., alias="backend")
 
     @property
     def backends(self) -> Iterator[Backend]:

@@ -111,8 +111,7 @@ def main() -> None:
         parser.error(f"missing config: {args.config_file}")
 
     with args.config_file.open("rb") as io:
-        raw_config = tomllib.load(io)
-    config = Config.parse_obj(raw_config)
+        config = Config.parse_obj(tomllib.load(io))
     logger.debug(f"loaded config: {config}")
 
     with _get_post(args) as (content, url, tags):
@@ -120,8 +119,9 @@ def main() -> None:
 
         backends = list(config.backends)
         for backend in backends:
-            if not (status := backend.health_check()):
-                print(status)
+            status = backend.health_check()
+            logger.debug(f"health check: {backend}: {status}")
+            if not status:
                 sys.exit(1)
 
         if args.dry_run:
