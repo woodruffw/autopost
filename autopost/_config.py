@@ -38,6 +38,10 @@ class RedditConfig(BaseModel):
 class TwitterConfig(BaseModel):
     type_: Literal["Twitter"] = Field(alias="type")
     name: str | None
+    api_key: Credential
+    api_key_secret: Credential
+    access_token: Credential
+    access_token_secret: Credential
 
 
 class MastodonConfig(BaseModel):

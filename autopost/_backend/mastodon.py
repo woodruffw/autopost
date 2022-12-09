@@ -33,27 +33,17 @@ class Mastodon(Backend):
         except Exception as e:
             return Err(str(e))
 
-    def post(self, content: str, url: str | None, *, tags: list[str] = []) -> Result[Url, str]:
+    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
         tags = [f"#{tag}" for tag in tags]
+        status = dedent(
+            f"""
+            {content}
 
-        if url:
-            status = dedent(
-                f"""
-                {content}
+            {url}
 
-                {url}
-
-                {' '.join(tags)}
-                """
-            )
-        else:
-            status = dedent(
-                f"""
-                {content}
-
-                {' '.join(tags)}
-                """
-            )
+            {' '.join(tags)}
+            """
+        )
 
         try:
             resp = self._client.status_post(status)
