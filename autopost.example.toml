@@ -1,0 +1,17 @@
+[[backend]]
+type = "Reddit"
+name = "reddit:/r/enosuchblog"
+subreddit = "enosuchblog"
+client_id = { type = "Environment", variable = "REDDIT_CLIENT_ID" }
+client_secret = { type = "Environment", variable = "REDDIT_CLIENT_SECRET" }
+username = "yossarian_flew_away"
+password = { type = "Environment", variable = "REDDIT_PASSWORD" }
+
+[[backend]]
+type = "Mastodon"
+name = "mastodon:@yossarian@infosec.exchange"
+server = "https://infosec.exchange"
+client_key = { type = "Environment", variable = "INFOSEC_EXCHANGE_CLIENT_KEY" }
+client_secret = { type = "Environment", variable = "INFOSEC_EXCHANGE_CLIENT_SECRET" }
+access_token = { type = "Environment", variable = "INFOSEC_EXCHANGE_ACCESS_TOKEN" }
+moa_crosspost = true

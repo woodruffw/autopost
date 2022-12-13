@@ -125,7 +125,8 @@ def main() -> None:
                 sys.exit(1)
 
         if args.dry_run:
+            console.print(f"dry run: would have posted {content} with URL: {url} and tags: {tags}")
             sys.exit(0)
 
-        # for backend in backends:
-        #     backend.post(args.content, args.url, tags=args.tags)
+        for backend in backends:
+            backend.post(args.content, args.url, tags=args.tags)
