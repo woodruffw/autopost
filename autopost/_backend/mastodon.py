@@ -24,8 +24,6 @@ class Mastodon(Backend):
 
     def health_check(self) -> Result[None, str]:
         try:
-            # TODO(ww): Use this once a new version of Mastodon.py is released.
-            # See: https://github.com/halcy/Mastodon.py/issues/258
             ok = self._client.instance_health()
             if ok:
                 return Ok()
