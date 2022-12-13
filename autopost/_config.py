@@ -51,6 +51,7 @@ class MastodonConfig(BaseModel):
     client_secret: Credential
     client_key: Credential
     access_token: Credential
+    moa_crosspost: bool = False
 
 
 BackendConfig = Annotated[

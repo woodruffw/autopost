@@ -33,6 +33,12 @@ class Mastodon(Backend):
 
     def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
         tags = [f"#{tag}" for tag in tags]
+
+        # If moa_crosspost is set, explicitly add the `#xp` tag to tell
+        # Moa Bridge that we'd like to crosspost this post to Twitter.
+        if self._config.moa_crosspost:
+            tags.append("#xp")
+
         status = dedent(
             f"""
             {content}
