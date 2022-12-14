@@ -44,8 +44,7 @@ lint: env/pyvenv.cfg
 		black --check $(ALL_PY_SRCS) && \
 		isort --check $(ALL_PY_SRCS) && \
 		flake8 $(ALL_PY_SRCS) && \
-		mypy $(PY_MODULE) && \
-		interrogate -c pyproject.toml .
+		mypy $(PY_MODULE)
 
 .PHONY: reformat
 reformat:
