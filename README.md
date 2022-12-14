@@ -45,8 +45,10 @@ it. See [autopost.example.toml](./autopost.example.toml) for an example configur
 
 Once configured, you can use `autopost` to make a post manually:
 
-```bash
-autopost manual "hello world!" --url "https://some-url" --tags foo bar
+```console
+$ autopost manual "test" --url "https://example.com" --tags foo bar
+🎉 reddit:/r/enosuchblog: https://reddit.com/r/enosuchblog/comments/zldk8y/test/
+🎉 mastodon:@yossarian@infosec.exchange: https://infosec.exchange/@yossarian/109509443715725349
 ```
 
 ...where `--tags` is optional.
