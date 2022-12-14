@@ -22,6 +22,10 @@ class Twitter(Backend):
             access_token_secret=self._config.access_token_secret.get_secret_value(),
         )
 
+    @property
+    def name(self) -> str:
+        return self._config.name
+
     def health_check(self) -> Result[None, str]:
         return Err("unimplemented")
 

@@ -27,7 +27,7 @@ Credential = Annotated[Embedded | Environment, Field(discriminator="type_")]
 
 class RedditConfig(BaseModel):
     type_: Literal["Reddit"] = Field(alias="type")
-    name: str | None
+    name: str
     subreddit: str
     client_id: Credential
     client_secret: Credential
@@ -37,7 +37,7 @@ class RedditConfig(BaseModel):
 
 class TwitterConfig(BaseModel):
     type_: Literal["Twitter"] = Field(alias="type")
-    name: str | None
+    name: str
     api_key: Credential
     api_key_secret: Credential
     access_token: Credential
@@ -46,7 +46,7 @@ class TwitterConfig(BaseModel):
 
 class MastodonConfig(BaseModel):
     type_: Literal["Mastodon"] = Field(alias="type")
-    name: str | None
+    name: str
     server: str
     client_secret: Credential
     client_key: Credential

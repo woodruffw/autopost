@@ -8,6 +8,7 @@ from typing import Iterator
 
 import feedparser
 import tomllib
+from result import Err, Ok
 from rich import traceback
 from rich.console import Console
 from rich.logging import RichHandler
@@ -56,7 +57,7 @@ def _parser() -> argparse.ArgumentParser:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     manual.add_argument(
-        "--url", metavar="URL", help="the URL to include in the post", required=False
+        "--url", metavar="URL", help="the URL to include in the post", required=True
     )
     manual.add_argument(
         "--tags",
@@ -129,4 +130,9 @@ def main() -> None:
             sys.exit(0)
 
         for backend in backends:
-            backend.post(args.content, args.url, tags=args.tags)
+            res = backend.post(args.content, args.url, tags=args.tags)
+            match res:
+                case Ok(url):
+                    console.print(f":tada: {backend.name}: {url}")
+                case Err(msg):
+                    console.print(f":skull: {backend.name}: {msg}")

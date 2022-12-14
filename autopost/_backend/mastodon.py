@@ -22,6 +22,10 @@ class Mastodon(Backend):
             access_token=self._config.access_token.get_secret_value(),
         )
 
+    @property
+    def name(self) -> str:
+        return self._config.name
+
     def health_check(self) -> Result[None, str]:
         try:
             ok = self._client.instance_health()

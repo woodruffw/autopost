@@ -22,6 +22,10 @@ class Reddit(Backend):
             user_agent="autopost by u/yossarian_flew_away",
         )
 
+    @property
+    def name(self) -> str:
+        return self._config.name
+
     def health_check(self) -> Result[None, str]:
         try:
             self._client.user.me()
@@ -33,6 +37,8 @@ class Reddit(Backend):
         try:
             subreddit = self._client.subreddit(self._config.subreddit)
             submission = subreddit.submit(content, url=url)
-            return Ok(Url(submission.permalink))
+            # `permalink` is formatted as `/r/subreddit/...`
+            url = f"https://reddit.com{submission.permalink}"
+            return Ok(Url(url))
         except Exception as e:
             return Err(str(e))
