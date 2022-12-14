@@ -1,7 +1,6 @@
 PY_MODULE := autopost
 
-ALL_PY_SRCS := $(shell find $(PY_MODULE) -name '*.py') \
-	$(shell find test -name '*.py')
+ALL_PY_SRCS := $(shell find $(PY_MODULE) -name '*.py')
 
 # Optionally overridden by the user in the `release` target.
 BUMP_ARGS :=
