@@ -130,9 +130,9 @@ def main() -> None:
             sys.exit(0)
 
         for backend in backends:
-            res = backend.post(args.content, args.url, tags=args.tags)
+            res = backend.post(content, url, tags=tags)
             match res:
-                case Ok(url):
-                    console.print(f":tada: {backend.name}: {url}")
+                case Ok(link):
+                    console.print(f":tada: {backend.name}: {link}")
                 case Err(msg):
                     console.print(f":skull: {backend.name}: {msg}")
