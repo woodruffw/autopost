@@ -48,11 +48,11 @@ test = [
 ]
 lint = [
   "bandit",
-  "flake8",
   "black",
   "isort",
   "interrogate",
   "mypy",
+  "ruff",
 ]
 dev = [
   "build",
@@ -81,6 +81,7 @@ disallow_untyped_defs = true
 ignore_missing_imports = true
 no_implicit_optional = true
 show_error_codes = true
+sqlite_cache = true
 strict_equality = true
 warn_no_return = true
 warn_redundant_casts = true
@@ -94,3 +95,8 @@ exclude_dirs = ["./test"]
 
 [tool.black]
 line-length = 100
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "UP"]
+target-version = "py37"
