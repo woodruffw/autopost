@@ -3,12 +3,12 @@ import json
 import logging
 import os
 import sys
+import tomllib
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
 
 import feedparser
-import tomllib
 from result import Err, Ok
 from rich import traceback
 from rich.console import Console
