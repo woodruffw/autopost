@@ -1,4 +1,5 @@
 import argparse
+import json
 import logging
 import os
 import sys
@@ -49,6 +50,8 @@ def _parser() -> argparse.ArgumentParser:
         help="the file to load for configuration",
         default=Path(os.getenv("AUTOPOST_CONFIG_FILE", _DEFAULT_CONFIG)),
     )
+    parser.add_argument("--json", action="store_true", help="write output as JSON")
+
     subcommands = parser.add_subparsers(dest="subcommand", required=True)
 
     manual = subcommands.add_parser(
@@ -129,10 +132,21 @@ def main() -> None:
             console.print(f"dry run: would have posted {content} with URL: {url} and tags: {tags}")
             sys.exit(0)
 
+        results = []
         for backend in backends:
-            res = backend.post(content, url, tags=tags)
-            match res:
+            status = backend.post(content, url, tags=tags)
+            result = {
+                "backend": backend.__class__.__name__,
+                "name": backend.name,
+            }
+            match status:
                 case Ok(link):
                     console.print(f":tada: {backend.name}: {link}")
+                    result["link"] = str(link)
                 case Err(msg):
                     console.print(f":skull: {backend.name}: {msg}")
+                    result["failure"] = msg
+            results.append(result)
+
+    if args.json:
+        print(json.dumps(results), file=sys.stdout)
