@@ -58,12 +58,6 @@ test tests: env/pyvenv.cfg
 		pytest --cov=$(PY_MODULE) $(T) $(TEST_ARGS) && \
 		python -m coverage report -m $(COV_ARGS)
 
-.PHONY: doc
-doc: env/pyvenv.cfg
-	. env/bin/activate && \
-		command -v pdoc3 && \
-		PYTHONWARNINGS='error::UserWarning' pdoc --force --html $(PY_MODULE)
-
 .PHONY: package
 package: env/pyvenv.cfg
 	. env/bin/activate && \
