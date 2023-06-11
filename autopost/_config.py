@@ -1,5 +1,6 @@
 import os
-from typing import Annotated, Iterator, Literal
+from collections.abc import Iterator
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field, SecretStr, StrictStr
 

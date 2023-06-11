@@ -8,9 +8,7 @@ dynamic = ["version"]
 description = "Auto-posts social media updates"
 readme = "README.md"
 license = { file = "LICENSE" }
-authors = [
-  { name = "William Woodruff", email = "william@yossarian.net" }
-]
+authors = [{ name = "William Woodruff", email = "william@yossarian.net" }]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3 :: Only",
@@ -41,23 +39,9 @@ Source = "https://github.com/woodruffw/autopost"
 autopost = "autopost._cli:main"
 
 [project.optional-dependencies]
-test = [
-  "pytest",
-  "pytest-cov",
-  "pretend",
-]
-lint = [
-  "bandit",
-  "black",
-  "isort",
-  "interrogate",
-  "mypy",
-  "ruff",
-]
-dev = [
-  "build",
-  "autopost[test,lint]",
-]
+test = ["pytest", "pytest-cov", "pretend"]
+lint = ["bandit", "black", "interrogate", "mypy", "ruff"]
+dev = ["build", "autopost[test,lint]"]
 
 [tool.isort]
 multi_line_output = 3
@@ -70,9 +54,7 @@ ignore-semiprivate = true
 fail-under = 100
 
 [tool.mypy]
-plugins = [
-  "pydantic.mypy"
-]
+plugins = ["pydantic.mypy"]
 
 allow_redefinition = true
 check_untyped_defs = true
@@ -98,5 +80,5 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
-select = ["E", "F", "W", "UP"]
-target-version = "py37"
+select = ["E", "F", "I", "W", "UP"]
+target-version = "py311"

@@ -41,7 +41,6 @@ env/pyvenv.cfg: pyproject.toml
 lint: env/pyvenv.cfg
 	. env/bin/activate && \
 		black --check $(ALL_PY_SRCS) && \
-		isort --check $(ALL_PY_SRCS) && \
 		ruff $(ALL_PY_SRCS) && \
 		mypy $(PY_MODULE)
 
@@ -49,8 +48,7 @@ lint: env/pyvenv.cfg
 reformat:
 	. env/bin/activate && \
 		ruff --fix $(ALL_PY_SRCS) && \
-		black $(ALL_PY_SRCS) && \
-		isort $(ALL_PY_SRCS)
+		black $(ALL_PY_SRCS)
 
 .PHONY: test tests
 test tests: env/pyvenv.cfg

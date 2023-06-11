@@ -4,9 +4,9 @@ import logging
 import os
 import sys
 import tomllib
+from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterator
 
 import feedparser
 from result import Err, Ok
