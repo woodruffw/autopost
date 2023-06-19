@@ -2,15 +2,12 @@ PY_MODULE := autopost
 
 ALL_PY_SRCS := $(shell find $(PY_MODULE) -name '*.py')
 
-# Optionally overridden by the user in the `release` target.
-BUMP_ARGS :=
-
 # Optionally overridden by the user in the `test` target.
 TESTS :=
 
 # Optionally overridden by the user/CI, to limit the installation to a specific
 # subset of development dependencies.
-AUTOPOST_EXTRA := dev
+INSTALL_EXTRA := dev
 
 # If the user selects a specific test pattern to run, set `pytest` to fail fast
 # and only run tests that match the pattern.
@@ -35,7 +32,7 @@ env/pyvenv.cfg: pyproject.toml
 	# Create our Python 3 virtual environment
 	python3 -m venv env
 	./env/bin/python -m pip install --upgrade pip
-	./env/bin/python -m pip install -e .[$(AUTOPOST_EXTRA)]
+	./env/bin/python -m pip install -e .[$(INSTALL_EXTRA)]
 
 .PHONY: lint
 lint: env/pyvenv.cfg
@@ -45,7 +42,7 @@ lint: env/pyvenv.cfg
 		mypy $(PY_MODULE)
 
 .PHONY: reformat
-reformat:
+reformat: env/pyvenv.cfg
 	. env/bin/activate && \
 		ruff --fix $(ALL_PY_SRCS) && \
 		black $(ALL_PY_SRCS)

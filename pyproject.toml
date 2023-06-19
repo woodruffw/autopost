@@ -43,11 +43,6 @@ test = ["pytest", "pytest-cov", "pretend"]
 lint = ["bandit", "black", "interrogate", "mypy", "ruff"]
 dev = ["build", "autopost[test,lint]"]
 
-[tool.isort]
-multi_line_output = 3
-known_first_party = "autopost"
-include_trailing_comma = true
-
 [tool.interrogate]
 exclude = ["env", "test", "codegen"]
 ignore-semiprivate = true
