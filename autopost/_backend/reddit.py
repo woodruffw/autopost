@@ -29,7 +29,7 @@ class Reddit(Backend):
     def health_check(self) -> Result[None, str]:
         try:
             self._client.user.me()
-            return Ok()
+            return Ok(None)
         except Exception as e:
             return Err(str(e))
 
