@@ -40,7 +40,7 @@ autopost = "autopost._cli:main"
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-cov", "pretend"]
-lint = ["bandit", "black", "interrogate", "mypy", "ruff"]
+lint = ["bandit", "interrogate", "mypy", "ruff"]
 dev = ["build", "autopost[test,lint]"]
 
 [tool.interrogate]
@@ -76,4 +76,3 @@ line-length = 100
 [tool.ruff]
 line-length = 100
 select = ["E", "F", "I", "W", "UP"]
-target-version = "py311"
