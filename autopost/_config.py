@@ -54,8 +54,14 @@ class MastodonConfig(BaseModel):
     access_token: Credential
 
 
+class BlueskyConfig(BaseModel):
+    type_: Literal["Bluesky"] = Field(alias="type")
+    username: str
+    password: Credential
+
+
 BackendConfig = Annotated[
-    RedditConfig | TwitterConfig | MastodonConfig, Field(discriminator="type_")
+    RedditConfig | TwitterConfig | MastodonConfig | BlueskyConfig, Field(discriminator="type_")
 ]
 
 
