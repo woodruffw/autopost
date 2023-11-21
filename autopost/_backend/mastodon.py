@@ -30,7 +30,7 @@ class Mastodon(Backend):
         try:
             ok = self._client.instance_health()
             if ok:
-                return Ok()
+                return Ok(None)
             return Err(f"{self._config.server} failed instance health check")
         except Exception as e:
             return Err(str(e))
