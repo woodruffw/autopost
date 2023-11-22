@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 # Adapted from: https://github.com/MarshalX/atproto/blob/main/examples/advanced_usage/auto_hyperlinks.py
-def _extract_url_byte_positions(text: str) -> tuple[str, int, int]:
+def _extract_url_byte_positions(text: str) -> list[tuple[str, int, int]]:
     encoded_text = text.encode()
 
     pattern = rb"https?\:\/\/(?:[\w\d-]+\.)*[\w-]+[\.\:]\w+\/?(?:[\/\?\=\&\#\.]?[\w-]+)+\/?"
@@ -82,6 +82,6 @@ class Bluesky(Backend):
             #
             # ...where the only part we care about is "IMPORTANTIDHERE".
             post_id = urllib.parse.urlparse(resp.uri).path.split("/")[-1]
-            return Ok(f"https://bsky.app/profile/{self._config.username}/post/{post_id}")
+            return Ok(Url(f"https://bsky.app/profile/{self._config.username}/post/{post_id}"))
         except Exception as e:
             return Err(str(e))
