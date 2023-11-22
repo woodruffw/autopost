@@ -1,7 +1,7 @@
 autopost
 ========
 
-![CI](https://github.com/woodruffw/autopost/workflows/CI/badge.svg)
+[![CI](https://github.com/woodruffw/autopost/actions/workflows/ci.yml/badge.svg)](https://github.com/woodruffw/autopost/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/autopost.svg)](https://pypi.org/project/autopost)
 
 A social media auto-poster for a blog.
@@ -11,6 +11,7 @@ Supported sites:
 * Twitter (currently untested)
 * Mastodon (any instance)
 * Reddit (any subreddit)
+* Bluesky
 
 ## Installation
 
