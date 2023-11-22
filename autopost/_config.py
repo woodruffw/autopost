@@ -56,6 +56,7 @@ class MastodonConfig(BaseModel):
 
 class BlueskyConfig(BaseModel):
     type_: Literal["Bluesky"] = Field(alias="type")
+    name: str
     username: str
     password: Credential
 
