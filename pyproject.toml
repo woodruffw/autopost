@@ -71,9 +71,8 @@ warn_unused_ignores = true
 [tool.bandit]
 exclude_dirs = ["./test"]
 
-[tool.black]
-line-length = 100
-
 [tool.ruff]
 line-length = 100
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "W", "UP"]
