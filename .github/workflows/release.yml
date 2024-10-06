@@ -5,17 +5,15 @@ on:
 
 name: release
 
+permissions: {}
+
 jobs:
   pypi:
     name: upload release to PyPI
     runs-on: ubuntu-latest
     permissions:
-      # Used for OIDC publishing.
-      # Used to sign the release's artifacts with sigstore-python.
+      # Used for OIDC publishing + attestations.
       id-token: write
-
-      # Used to attach signing artifacts to the published release.
-      contents: write
 
     steps:
     - uses: actions/checkout@v4
