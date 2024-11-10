@@ -96,7 +96,8 @@ def _get_post(args: argparse.Namespace) -> Iterator[tuple[str, str, list[str]]]:
         if not feed.entries:
             raise ValueError("feed is missing entries")
         latest = feed.entries[0]
-        yield latest.title, latest.link, [t["term"] for t in latest.tags]
+        tags = latest.get("tags", [])
+        yield latest.title, latest.link, [t["term"] for t in tags]
     else:
         logger.error("unreachable")
         sys.exit(1)
