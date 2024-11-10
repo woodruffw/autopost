@@ -14,3 +14,9 @@ server = "https://infosec.exchange"
 client_key = { type = "Environment", variable = "INFOSEC_EXCHANGE_CLIENT_KEY" }
 client_secret = { type = "Environment", variable = "INFOSEC_EXCHANGE_CLIENT_SECRET" }
 access_token = { type = "Environment", variable = "INFOSEC_EXCHANGE_ACCESS_TOKEN" }
+
+[[backend]]
+type = "Bluesky"
+name = "@yossarian.net@bluesky"
+username = "yossarian.net"
+password = { type = "Environment", variable = "BLUESKY_APP_PASSWORD" }
