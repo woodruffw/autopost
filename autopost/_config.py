@@ -61,8 +61,14 @@ class BlueskyConfig(BaseModel):
     password: Credential
 
 
+class DummyConfig(BaseModel):
+    type_: Literal["Dummy"] = Field(alias="type")
+    name: str
+
+
 BackendConfig = Annotated[
-    RedditConfig | TwitterConfig | MastodonConfig | BlueskyConfig, Field(discriminator="type_")
+    RedditConfig | TwitterConfig | MastodonConfig | BlueskyConfig | DummyConfig,
+    Field(discriminator="type_"),
 ]
 
 
