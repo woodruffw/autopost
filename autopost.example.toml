@@ -20,3 +20,8 @@ type = "Bluesky"
 name = "@yossarian.net@bluesky"
 username = "yossarian.net"
 password = { type = "Environment", variable = "BLUESKY_APP_PASSWORD" }
+
+# Dummy backends are useful for testing.
+[[backend]]
+type = "Dummy"
+name = "dummy"
