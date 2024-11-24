@@ -31,6 +31,10 @@ class Bluesky(Backend):
     def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
         post = client_utils.TextBuilder().text(f"{content} ").link(url, url)
 
+        for tag in tags:
+            post.text(" ")
+            post = post.tag(f"#{tag}", tag)
+
         try:
             resp = self._client.send_post(post)
 
