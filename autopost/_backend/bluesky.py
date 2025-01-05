@@ -29,11 +29,14 @@ class Bluesky(Backend):
             return Err(f"{self._config.name} failed profile health check")
 
     def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
-        post = client_utils.TextBuilder().text(f"{content} ").link(url, url)
+        post = client_utils.TextBuilder().text(f"{content}\n").link(url, url)
+
+        if tags:
+            post.text("\n")
 
         for tag in tags:
-            post.text(" ")
             post = post.tag(f"#{tag}", tag)
+            post.text(" ")
 
         try:
             resp = self._client.send_post(post)
