@@ -37,7 +37,7 @@ class Twitter(Backend):
 
             {url}
 
-            {' '.join(tags)}
+            {" ".join(tags)}
             """
         )
 

@@ -44,7 +44,7 @@ class Mastodon(Backend):
 
             {url}
 
-            {' '.join(tags)}
+            {" ".join(tags)}
             """
         )
 
