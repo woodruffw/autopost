@@ -6,6 +6,7 @@ import sys
 import tomllib
 from collections.abc import Iterator
 from contextlib import contextmanager
+from importlib.metadata import version
 from pathlib import Path
 
 import feedparser
@@ -14,7 +15,6 @@ from rich import traceback
 from rich.console import Console
 from rich.logging import RichHandler
 
-from autopost import __version__
 from autopost._config import Config
 
 _HERE = Path.cwd().resolve()
@@ -39,7 +39,9 @@ def _parser() -> argparse.ArgumentParser:
         description="auto-posts social media updates",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument(
+        "-V", "--version", action="version", version=f"%(prog)s {version('autopost')}"
+    )
     parser.add_argument(
         "-v", "--verbose", action="store_true", help="be more verbose while running"
     )
@@ -130,7 +132,9 @@ def main() -> None:
                 sys.exit(1)
 
         if args.dry_run:
-            console.print(f"dry run: would have posted {content} with URL: {url} and tags: {tags}")
+            console.print(
+                f"dry run: would have posted {content} with URL: {url} and tags: {tags}"
+            )
             sys.exit(0)
 
         results = []

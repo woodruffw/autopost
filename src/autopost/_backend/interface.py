@@ -19,5 +19,7 @@ class Backend(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
+    def post(
+        self, content: str, url: str, *, tags: list[str] | None = None
+    ) -> Result[Url, str]:
         raise NotImplementedError
