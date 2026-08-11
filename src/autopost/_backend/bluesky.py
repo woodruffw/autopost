@@ -16,7 +16,9 @@ class Bluesky(Backend):
     def __init__(self, config: BlueskyConfig):
         self._config = config
         self._client = Client()
-        self._client.login(self._config.username, self._config.password.get_secret_value())
+        self._client.login(
+            self._config.username, self._config.password.get_secret_value()
+        )
 
     @property
     def name(self) -> str:
@@ -28,7 +30,12 @@ class Bluesky(Backend):
         else:
             return Err(f"{self._config.name} failed profile health check")
 
-    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
+    def post(
+        self, content: str, url: str, *, tags: list[str] | None = None
+    ) -> Result[Url, str]:
+        if tags is None:
+            tags = []
+
         post = client_utils.TextBuilder().text(f"{content}\n").link(url, url)
 
         if tags:
@@ -48,6 +55,8 @@ class Bluesky(Backend):
             #
             # ...where the only part we care about is "IMPORTANTIDHERE".
             post_id = urllib.parse.urlparse(resp.uri).path.split("/")[-1]
-            return Ok(Url(f"https://bsky.app/profile/{self._config.username}/post/{post_id}"))
+            return Ok(
+                Url(f"https://bsky.app/profile/{self._config.username}/post/{post_id}")
+            )
         except Exception as e:
             return Err(str(e))

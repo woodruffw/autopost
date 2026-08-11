@@ -21,6 +21,8 @@ class Dummy(Backend):
     def health_check(self) -> Result[None, str]:
         return Ok(None)
 
-    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
+    def post(
+        self, content: str, url: str, *, tags: list[str] | None = None
+    ) -> Result[Url, str]:
         print(f"DUMMY ({self.name}): {content=} {url=} {tags=}")
         return Ok(Url(url))

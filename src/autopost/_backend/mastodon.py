@@ -35,7 +35,12 @@ class Mastodon(Backend):
         except Exception as e:
             return Err(str(e))
 
-    def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
+    def post(
+        self, content: str, url: str, *, tags: list[str] | None = None
+    ) -> Result[Url, str]:
+        if tags is None:
+            tags = []
+
         tags = [f"#{tag}" for tag in tags]
 
         status = dedent(
