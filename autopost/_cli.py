@@ -116,7 +116,7 @@ def main() -> None:
         parser.error(f"missing config: {args.config_file}")
 
     with args.config_file.open("rb") as io:
-        config = Config.parse_obj(tomllib.load(io))
+        config = Config.model_validate(tomllib.load(io))
     logger.debug(f"loaded config: {config}")
 
     with _get_post(args) as (content, url, tags):

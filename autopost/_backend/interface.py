@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 from typing import NewType
 
 from result import Result
@@ -9,14 +9,15 @@ Url = NewType("Url", str)
 
 
 class Backend(ABC):
-    @abstractproperty
+    @property
+    @abstractmethod
     def name(self) -> str:
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def health_check(self) -> Result:
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def post(self, content: str, url: str, *, tags: list[str] = []) -> Result[Url, str]:
-        pass
+        raise NotImplementedError
