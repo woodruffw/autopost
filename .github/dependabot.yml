@@ -7,6 +7,10 @@ updates:
       interval: monthly
     cooldown:
       default-days: 7
+    groups:
+      all:
+        patterns:
+          - "*"
 
   - package-ecosystem: github-actions
     directory: /
@@ -14,3 +18,7 @@ updates:
       interval: monthly
     cooldown:
       default-days: 7
+    groups:
+      all:
+        patterns:
+          - "*"
